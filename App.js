@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Octicons } from "@expo/vector-icons";
 import HomeScreen from "./pages/HomeScreen";
 import ProfileScreen from "./pages/ProfileScreen";
+import DetailScreen from "./pages/DetailScreen";
 import Header from "./components/Header";
 
 const bottomTabNavigator = createBottomTabNavigator();
@@ -51,6 +52,7 @@ export default function App() {
           component={HomeScreen}
         />
         <bottomTabNavigator.Screen name="Profile" component={ProfileScreen} />
+        <bottomTabNavigator.Screen name="Detail" component={DetailScreen} /> {/* Tambahkan rute ke halaman Detail */}
       </bottomTabNavigator.Navigator>
     </NavigationContainer>
   );
