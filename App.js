@@ -52,7 +52,7 @@ export default function App() {
           component={HomeScreen}
         />
         <bottomTabNavigator.Screen name="Profile" component={ProfileScreen} />
-        <bottomTabNavigator.Screen name="Detail" component={DetailScreen} /> {/* Tambahkan rute ke halaman Detail */}
+        <bottomTabNavigator.Screen name="Detail" component={DetailScreen} />
       </bottomTabNavigator.Navigator>
     </NavigationContainer>
   );
