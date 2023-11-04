@@ -9,7 +9,7 @@ const Card = ({ dataNama }) => {
         style={{
             paddingVertical: 8,
             borderRadius: 8,
-            flexDirection: "column",
+            flexDirection: "row",
             alignItems: "center",
         }}
         >
@@ -17,10 +17,10 @@ const Card = ({ dataNama }) => {
             style={{
             borderWidth: 2,
             borderRadius: 8,
-            flexDirection: "row",
+            flexDirection: "column",
             justifyContent: "flex-start",
             alignItems: "center",
-            width: 300,
+            width: 200,
             }}
         >
             <Image
