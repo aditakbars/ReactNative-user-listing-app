@@ -4,8 +4,8 @@ import Header from "../components/Header";
 import fetchDataFromAPI from "../data/animeData";
 
 const windowWidth = Dimensions.get('window').width;
-const cardWidth = windowWidth * 0.6; // Lebar card sekitar 80% dari lebar layar
-const cardHeight = cardWidth * 1.9; // Tinggi card sekitar 1.5 kali lebar card
+const cardWidth = windowWidth * 0.8; // Lebar card sekitar 80% dari lebar layar
+const cardHeight = cardWidth * 1.5; // Tinggi card sekitar 1.5 kali lebar card
 
 function HomeScreen() {
   const [animeData, setAnimeData] = useState([]);
@@ -24,80 +24,29 @@ function HomeScreen() {
         flexPosition={"center"}
       />
       <Text style={styles.title}>Top Anime</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {animeData.map((item) => (
+      <FlatList
+        data={animeData}
+        keyExtractor={(item) => item.mal_id.toString()}
+        renderItem={({ item }) => (
           <View key={item.mal_id} style={styles.itemContainer}>
             <Image source={{ uri: item.images.jpg.small_image_url }} style={styles.image} />
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.rating}>Rating: {item.score}</Text>
           </View>
-        ))}
-      </ScrollView>
+        )}
+        horizontal // Menjadikan list horizontal
+        showsHorizontalScrollIndicator={false} // Hilangkan indikator gulir horizontal
+        contentContainerStyle={{ paddingLeft: 16, paddingRight: 16 }}
+      />
       <Text style={styles.title}>All Anime</Text>
       <FlatList
         data={animeData}
         keyExtractor={(item) => item.mal_id.toString()}
         renderItem={({ item }) => (
-          <View>
-            <View
-              style={{
-                  paddingVertical: 8,
-                  borderRadius: 8,
-                  flexDirection: "column",
-                  alignItems: "center",
-              }}
-              >
-            <View
-                style={{
-                borderWidth: 2,
-                borderRadius: 8,
-                flexDirection: "row",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                width: 300,
-                }}
-            >
-            <Image
-            source={{ uri: item.images.jpg.image_url }}
-            style={{
-                width: 100,
-                height: 150,
-                borderRightWidth: 2,
-                borderBottomLeftRadius: 6,
-                borderTopLeftRadius: 6,
-                borderColor: "black",
-            }}
-            />
-            <View
-            style={{
-                flexDirection: "column",
-                marginLeft: 16,
-                justifyContent: "center",
-                maxWidth: 180,
-            }}
-            >
-            <Text
-                style={{
-                fontSize: 18,
-                fontWeight: "600",
-                }}
-            >
-                {item.title}
-            </Text>
-            <Text
-                style={{
-                fontWeight: "400",
-                color: "gray",
-                }}
-            >
-                {item.score}
-            </Text>
-            </View>
-        </View>
-      </View>
-            {/* <Image source={{ uri: item.images.jpg.image_url }} style={styles.image} />
+          <View style={styles.itemContainer}>
+            <Image source={{ uri: item.images.jpg.image_url }} style={styles.imageHorizontal} />
             <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.rating}>Rating: {item.score}</Text> */}
+            <Text style={styles.rating}>Rating: {item.score}</Text>
           </View>
         )}
       />
@@ -121,17 +70,20 @@ const styles = StyleSheet.create({
     height: cardHeight,
     marginRight: 20,
     marginBottom: 20,
-    borderRadius: 8,
+    borderRadius: 15,
     shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
     elevation: 4,
     backgroundColor: 'white',
   },
   image: {
     width: '100%',
-    height: '90%', // Gambar akan memenuhi 70% dari tinggi card
+    height: '50%', // Gambar akan memenuhi 70% dari tinggi card
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+  },
+  imageHorizontal: {
+    width: '100%',
+    height: '70%', // Gambar akan memenuhi 70% dari tinggi card
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
