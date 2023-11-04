@@ -2,17 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, ScrollView, StyleSheet, Image, Dimensions } from 'react-native';
 import Header from "../components/Header";
-import fetchDataFromAPI from "../data/animeData";
-
-const windowWidth = Dimensions.get('window').width;
-const cardWidth = windowWidth * 0.5; // Lebar card sekitar 80% dari lebar layar
-const cardHeight = cardWidth * 2; // Tinggi card sekitar 1.5 kali lebar card
+import fetchDataAnime from "../data/animeData";
 
 function HomeScreen() {
   const [animeData, setAnimeData] = useState([]);
 
   useEffect(() => {
-    fetchDataFromAPI().then((data) => {
+    fetchDataAnime().then((data) => {
       setAnimeData(data);
     });
   }, []);
@@ -24,17 +20,21 @@ function HomeScreen() {
         headerText={"Hi, Adit dari Kelompok 17!"}
         flexPosition={"center"}
       />
-      <Text style={styles.title}>Top Anime</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={true}>
-        {animeData.map((item) => (
+      <Text style={styles.toptitle}>Top Anime</Text>
+      <FlatList
+        data={animeData}
+        keyExtractor={(item) => item.mal_id.toString()}
+        renderItem={({ item }) => (
           <View key={item.mal_id} style={styles.itemContainer}>
             <Image source={{ uri: item.images.jpg.small_image_url }} style={styles.image} />
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.rating}>Rating: {item.score}</Text>
           </View>
-        ))}
-      </ScrollView>
-      <Text style={styles.title}>All Anime</Text>
+        )}
+        horizontal // Menjadikan list horizontal
+        showsHorizontalScrollIndicator={false} // Hilangkan indikator gulir horizontal
+      />
+      <Text style={styles.toptitle}>All Anime</Text>
       <FlatList
         data={animeData}
         keyExtractor={(item) => item.mal_id.toString()}
@@ -112,39 +112,42 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 16,
   },
-  title: {
+  toptitle: {
     fontSize: 24,
-    fontWeight: '600',
-    marginVertical: 16,
+    fontWeight: '800',
+    marginVertical: 10,
   },
   itemContainer: {
-    width: cardWidth,
-    height: cardHeight,
+    width: 150,
+    height: 700,
     marginRight: 20,
     marginBottom: 20,
     borderRadius: 8,
     shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
+    shadowOffset: { width: 1, height: 2 },
+    shadowOpacity: 0.5,
     shadowRadius: 4,
     elevation: 4,
     backgroundColor: 'white',
+    borderColor: 'black',
   },
   image: {
-    width: '100%',
-    height: '90%', // Gambar akan memenuhi 70% dari tinggi card
+    width: 150,
+    height: 200,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
   title: {
-    fontSize: 18,
-    fontWeight: '600',
-    padding: 8,
+    fontSize: 15,
+    fontWeight: '700',
+    padding: 5,
   },
   rating: {
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: '500',
     color: 'gray',
-    padding: 8,
+    paddingTop: 0,
+    padding: 5,
   },
 });
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const fetchDataFromAPI = async () => {
+const fetchDataAnime = async () => {
     try {
         const response = await axios.get('https://api.jikan.moe/v4/top/anime');
         const animeData = response.data.data;
@@ -11,4 +11,4 @@ const fetchDataFromAPI = async () => {
     }
 };
 
-export default fetchDataFromAPI;
+export default fetchDataAnime;
