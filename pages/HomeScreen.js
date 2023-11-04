@@ -26,13 +26,13 @@ function HomeScreen() {
         keyExtractor={(item) => item.mal_id.toString()}
         renderItem={({ item }) => (
           <View key={item.mal_id} style={styles.itemContainer}>
-            <Image source={{ uri: item.images.jpg.small_image_url }} style={styles.image} />
+            <Image source={{ uri: item.images.jpg.image_url }} style={styles.image} />
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.rating}>Rating: {item.score}</Text>
           </View>
         )}
         horizontal // Menjadikan list horizontal
-        showsHorizontalScrollIndicator={false} // Hilangkan indikator gulir horizontal
+        showsHorizontalScrollIndicator={true}
       />
       <Text style={styles.toptitle}>All Anime</Text>
       <FlatList
@@ -93,12 +93,9 @@ function HomeScreen() {
             >
                 {item.score}
             </Text>
+              </View>
             </View>
           </View>
-        </View>
-            {/* <Image source={{ uri: item.images.jpg.image_url }} style={styles.image} />
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.rating}>Rating: {item.score}</Text> */}
           </View>
         )}
       />
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     width: 150,
-    height: 700,
+    height: 600,
     marginRight: 20,
     marginBottom: 20,
     borderRadius: 8,
@@ -129,21 +126,22 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 4,
     backgroundColor: 'white',
-    borderColor: 'black',
+    borderColor: 'grey',
+    borderWidth: 1,
   },
   image: {
-    width: 150,
+    width: 148,
     height: 200,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
   title: {
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: '700',
     padding: 5,
   },
   rating: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '500',
     color: 'gray',
     paddingTop: 0,
